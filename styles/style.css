@@ -377,3 +377,7 @@ div #title{
     top: 0;
     left: 0;
 }
+
+#mapid { height: 650px; 
+	width: 90%;
+}

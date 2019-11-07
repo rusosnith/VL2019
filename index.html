@@ -4,6 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
   <title>Presupuesto Participativo</title>
 	 <meta charset="UTF-8">    
     <meta name="format-detection" content="telephone=no">
@@ -12,6 +14,10 @@
 	<link rel="stylesheet" href="styles/site.css">
 	<link rel='stylesheet' href='styles/style.css'>
 	<link rel='stylesheet' href='styles/mapStyles.css'>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		crossorigin="" />
+
 
 <style>
 
@@ -354,6 +360,15 @@
 
 		<section id='outro'>
 <div class="ext-datos">
+
+			<article class="seccion-datos">
+				<h3 class="wow fadeInUp">BUSCA LOS PROYECTOS POR UBICACIÓN EXACTA</h3>
+				<figure class="graph-box">
+						<div id="mapid"></div>
+				</figure>
+			</article>
+
+
 		<article class="seccion-datos">
 			<h3 class="wow fadeInUp">SUMATE AL PRESUPUESTO PARTICIPATIVO VICENTE LÓPEZ</h3>
 			<figure class="graph-box">
@@ -385,6 +400,9 @@
 
 	<script src="js/map.js"></script>
 
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+		integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+		crossorigin=""></script>
   
 	<script src='js/intersection-observer.js'></script>
 	<script src='js/stickyfill.min.js'></script>
@@ -493,6 +511,17 @@
 		// kick things off
 		init();
 
+
+
+// LEAFLET ZONE
+	var mymap = L.map('mapid').setView([-34.5300, -58.5041], 13);
+				L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+						attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+					}).addTo(mymap);
+
+					mymap.options.minZoom = 11;
+					mymap.options.maxZoom = 13;
+	mymap.setMaxBounds(mymap.getBounds().pad(0.05));
 
 	</script>
 
