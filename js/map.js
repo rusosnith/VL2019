@@ -281,7 +281,10 @@ function ready (results){
 
   dibujaLabels();
 
- }  // fin de Ready;
+  creaLeaflet();
+ }  
+ 
+ // ******************** fin de Ready;
 
  
   function dibujaBubbles(nodes, estado) {
@@ -709,7 +712,6 @@ var iteraciones = 270;
 
 // ----------------------------------------------------
 
-    d3.select("#cargando").remove();    
 
 
   var linearSize = d3.scaleLinear().domain([0,10]).range([10, 30]);
@@ -840,4 +842,38 @@ function wrap(text, width) {
       }
     }
   });
+}
+
+
+function creaLeaflet() {
+  var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+
+  var mymap = L.map('mapid').setView([-34.5300, -58.5041], 13);
+  L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr }).addTo(mymap);
+
+  mymap.options.minZoom = 13;
+  mymap.options.maxZoom = 15;
+  mymap.setMaxBounds(mymap.getBounds().pad(0.05));
+
+
+// var myRenderer = L.canvas({ padding: 0.5 });
+
+// for (var i = 0; i < 100000; i += 1) { // 100k points
+//     L.circleMarker(getRandomLatLng(), {
+//         renderer: myRenderer
+//     }).addTo(map).bindPopup('marker ' + i);
+// }
+
+// function getRandomLatLng() {
+//     return [
+//         -90 + 180 * Math.random(),
+//         -180 + 360 * Math.random()
+//     ];
+// }
+
+  
 }
