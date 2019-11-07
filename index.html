@@ -275,8 +275,8 @@
 			<figure>
 				
 				<div class="sticked">
-					
-				<svg id="stickyViz"></svg>
+				<div id="svgcontainer" class="svg-container"></div>	
+
 				<div id="tooltip" class="topic-article-wrapper">
 	
 					<div class="topic-article-content proyecto-ganador">
@@ -436,10 +436,10 @@
 			step.style('height', stepH + 'px');
 
 			var figureHeight = height;
-			var figureMarginTop = (window.innerHeight - height) / 2  
+			var figureMarginTop = 70;//(window.innerHeight - height) / 2  
 
-			figure
-				.style('height', figureHeight + 'px')
+			figure.attr("id","topContainer")
+				//.style('height', figureHeight + 'px')
 				.style('top', figureMarginTop + 'px');
 
 

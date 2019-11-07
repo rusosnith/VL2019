@@ -363,3 +363,17 @@ div #title{
 	white-space: nowrap;
     overflow: scroll;
 }
+
+
+.svg-container {
+    position: relative;
+	max-width: 900px;
+    vertical-align: top;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.svg-content {
+    display: inline-block;
+    top: 0;
+    left: 0;
+}

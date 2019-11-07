@@ -12,11 +12,11 @@ var isSmallDevice =  window.innerWidth < 840 ? true : false;
 var height = isSmallDevice ? 568 : 800;
 var width= isSmallDevice ?  window.innerWidth  : 850 ;
 
-var insideheight = height * 0.7; 
+var insideheight = height * 0.85; 
 insidewidth = isSmallDevice ? window.innerWidth : width-30 ;
 
 var anchomapa = isSmallDevice ? window.innerWidth : width -30,
-  altomapa = isSmallDevice ? window.innerHeight*0.6 : height - 50;
+  altomapa = isSmallDevice ? window.innerHeight*0.6 : height - 40;
 
 
 
@@ -163,9 +163,14 @@ let tooltip = d3.select("#tooltip");
                 
 var coloreaBarrios;
 
-var svg = d3.select("#stickyViz")
-            .attr("height",height)
-            .attr("width",width);
+var svg = d3.select("div#svgcontainer")
+  .append("svg")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", "0 0 " + width + " " + height)
+  .classed("svg-content", true);
+
+if (innerHeight < height) d3.select("div#svgcontainer").style("width",(height/width*innerHeight)+"px");
+
 
 
 //********** LOADER *********************
@@ -280,7 +285,7 @@ function ready (results){
 
  
   function dibujaBubbles(nodes, estado) {
-            console.log("Viene de:"+estadoActivo+"/ update:" + estado);
+            //console.log("Viene de:"+estadoActivo+"/ update:" + estado);
 
             // prendo o apago el mapa
             if(estado == "intro" || estado == "mapa"){
