@@ -7,7 +7,7 @@
 var path = d3.geoPath();
 
 var padding = isSmallDevice ? 0.5 : 1;
-var nodes, bubbles, bubblesStage, labels, labelsBarrios, labelsTemas, labelsExtra, nestedBarrios;
+var nodes, bubbles, bubblesStage, labels, labelsBarrios, labelsTemas, labelsExtra, nestedBarrios, mymap;
 var isSmallDevice =  window.innerWidth < 840 ? true : false;
 var height = isSmallDevice ? 568 : 800;
 var width= isSmallDevice ?  window.innerWidth  : 850 ;
@@ -229,26 +229,27 @@ function ready (results){
 
     nodes = respuestas.map(function (d, i) {
 
-    if (!d.longlat) d.longlat = "-34.552000,-58.481300"; // para los que tienen longlat vacios
-    
-    return {
-      nombre: d.titulo,
-      barrio: d.barrio,
-      presupuesto: +d.presupuesto,//numberFormat(+d.presupuesto),
-      radius: radiusScale(+d.presupuesto),
-      descripcion: d.descripcion,
-      tema: d.temaResumen,
-      id: d.id,
-      longlat: projection([Number(d.longlat.split(",")[1]), Number(d.longlat.split(",")[0])]),
-      centroide: centroides[d.barrio],
-      centroideGeo: centroidesGeo[d.barrio],
-      sextos: sextos[d.temaResumen],
-      timeline: [xTimeline(d.temaResumen), yTimeline(+d.ano)],
-      ano: +d.ano,
-      votos: d.votos,
-      xPos: {},
-      yPos: {}
-    }
+          if (!d.longlat) d.longlat = "-34.552000,-58.481300"; // para los que tienen longlat vacios
+          
+          return {
+            nombre: d.titulo,
+            barrio: d.barrio,
+            presupuesto: +d.presupuesto,//numberFormat(+d.presupuesto),
+            radius: radiusScale(+d.presupuesto),
+            descripcion: d.descripcion,
+            tema: d.temaResumen,
+            id: d.id,
+            longlat: projection([Number(d.longlat.split(",")[1]), Number(d.longlat.split(",")[0])]),
+            geoLatLong: [Number(d.longlat.split(",")[0]), Number(d.longlat.split(",")[1])],
+            centroide: centroides[d.barrio],
+            centroideGeo: centroidesGeo[d.barrio],
+            sextos: sextos[d.temaResumen],
+            timeline: [xTimeline(d.temaResumen), yTimeline(+d.ano)],
+            ano: +d.ano,
+            votos: d.votos,
+            xPos: {},
+            yPos: {}
+          }
   });
 
   nestedBarrios = d3.nest()
@@ -852,28 +853,24 @@ function creaLeaflet() {
     mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
 
-  var mymap = L.map('mapid').setView([-34.5300, -58.5041], 13);
-  L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr }).addTo(mymap);
+      mymap = L.map('mapid').setView([-34.5300, -58.5041], 13);
+      L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr }).addTo(mymap);
 
-  mymap.options.minZoom = 13;
-  mymap.options.maxZoom = 15;
-  mymap.setMaxBounds(mymap.getBounds().pad(0.05));
+      mymap.options.minZoom = 13;
+      mymap.options.maxZoom = 15;
+      mymap.setMaxBounds(mymap.getBounds().pad(0.05));
 
 
-// var myRenderer = L.canvas({ padding: 0.5 });
+    var myRenderer = L.canvas({ padding: 0.5 });
 
-// for (var i = 0; i < 100000; i += 1) { // 100k points
-//     L.circleMarker(getRandomLatLng(), {
-//         renderer: myRenderer
-//     }).addTo(map).bindPopup('marker ' + i);
-// }
+      nodes.forEach(d => {
+        L.circleMarker(d.geoLatLong, {
+            renderer: myRenderer,
+          color: colorScale(d.tema)
+        }).addTo(mymap).bindPopup('marker ' + d.nombre);
+      });
 
-// function getRandomLatLng() {
-//     return [
-//         -90 + 180 * Math.random(),
-//         -180 + 360 * Math.random()
-//     ];
-// }
+
 
   
 }
