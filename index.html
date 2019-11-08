@@ -303,6 +303,7 @@
 						</div>
 					</div>
 				</div>
+				</div>
 			</figure>
 
 			<article>
@@ -364,7 +365,52 @@
 			<article class="seccion-datos">
 				<h3 class="wow fadeInUp">BUSCA LOS PROYECTOS POR UBICACIÓN EXACTA</h3>
 				<figure class="graph-box">
+					<div class="graph-img controls">
+						<select id="selectTemas">
+							<option value="">TODOS LOS TEMAS</option>
+							<option value="AMBIENTE">AMBIENTE</option>
+							<option value="EDUCACIÓN">EDUCACIÓN</option>
+							<option value="INFRAESTRUCTURA COMUNITARIA">INFRAESTRUCTURA COMUNITARIA</option>
+							<option value="INFRAESTRUCTURA URBANA">INFRAESTRUCTURA URBANA</option>
+							<option value="SEGURIDAD Y TRÁNSITO">SEGURIDAD Y TRÁNSITO</option>
+							<option value="OTROS">OTROS</option>
+						</select>
+						<select id="selectBarrios">
+							<option value="">Todos los barrios</option>
+							<option value="CARAPACHAY">Carapachay</option>
+							<option value="FLORIDA ESTE">Florida</option>
+							<option value="FLORIDA OESTE">Florida Oeste</option>
+							<option value="LA LUCILA">La Lucila</option>
+							<option value="MUNRO">Munro</option>
+							<option value="OLIVOS">Olivos</option>
+							<option value="VICENTE LÓPEZ">Vicente López</option>
+							<option value="VILLA ADELINA">Villa Adelina</option>
+							<option value="VILLA MARTELL">Villa Martelli</option>
+						</select>
+					<a href="javascript: creaLeaflet()" class="button">FILTRAR</a>
+
+					</div>
 						<div id="mapid"></div>
+						<div id="tooltipMap" class="topic-article-wrapper">
+						
+							<div class="topic-article-content proyecto-ganador">
+								<div class="box-header">
+									<div class="topic-status status-active-preparacion" id="title">
+									</div>
+								</div>
+								<div class="box-content">
+									<div class="topic-info">
+										<span class="topic-year"><b>AÑO: </b><span id="ano"></span></span>
+										<span class="topic-location unavailable"><b id="barrio"></b></span>
+									</div>
+									<div class="box-content-item"><span class="box-content-title">
+											Presupuesto estimado</span>
+										<span class="box-content-info" id="presupuesto"></span></div>
+									<div class="box-content-item"><span class="box-content-title">Cantidad de votos:</span><span
+											class="box-content-info" id="votos"></span></div>
+								</div>
+							</div>
+						</div>
 				</figure>
 			</article>
 
@@ -416,8 +462,8 @@
 					boxClass: 'wow',      // animated element css class (default is wow)
 					animateClass: 'animated', // animation css class (default is animated)
 					offset: 0,          // distance to the element when triggering the animation (default is 0)
-					mobile: true,       // trigger animations on mobile devices (default is true)
-					live: true,       // act on asynchronously loaded content (default is true)
+					mobile: false,       // trigger animations on mobile devices (default is true)
+					live: false,       // act on asynchronously loaded content (default is true)
 					callback: function (box) {
 						if (d3.select(box).attr("id") == "personitas") personitasStart();
 					},

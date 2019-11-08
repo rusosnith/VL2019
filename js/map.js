@@ -7,7 +7,7 @@
 var path = d3.geoPath();
 
 var padding = isSmallDevice ? 0.5 : 1;
-var nodes, bubbles, bubblesStage, labels, labelsBarrios, labelsTemas, labelsExtra, nestedBarrios, mymap;
+var nodes, bubbles, bubblesStage, labels, labelsBarrios, labelsTemas, labelsExtra, nestedBarrios, mymap, layerGroup;
 var isSmallDevice =  window.innerWidth < 840 ? true : false;
 var height = isSmallDevice ? 568 : 800;
 var width= isSmallDevice ?  window.innerWidth  : 850 ;
@@ -160,7 +160,13 @@ var projection = d3.geoMercator();
 
 // Define the div for the tooltip
 let tooltip = d3.select("#tooltip");
-                
+
+let tooltipMap = d3.select("#tooltipMap");
+    tooltipMap.on("click", function () {
+      tooltipMap.transition().duration(500).style("opacity", 0);
+    });
+
+    
 var coloreaBarrios;
 
 var svg = d3.select("div#svgcontainer")
@@ -172,9 +178,6 @@ var svg = d3.select("div#svgcontainer")
 if (innerHeight < height) d3.select("div#svgcontainer").style("width",(height/width*innerHeight)+"px");
 
 
-
-//********** LOADER *********************
-            svg.append("text").attr("id","cargando").text("cargando....").attr("x", height / 2).attr("y", width / 2); // LOADER TRUCHO
 
 //********** CARGA DE DATOS *********************
 
@@ -282,7 +285,7 @@ function ready (results){
 
   dibujaLabels();
 
-  creaLeaflet();
+  creaLeaflet("start");
  }  
  
  // ******************** fin de Ready;
@@ -698,7 +701,6 @@ var iteraciones = 270;
                 .duration(50)
                 .style("opacity", .9);
           tooltip.select("#title").html(d.data.nombre);
-          //tooltip.select("#prdescripcion").html(d.data.descripcion);
             tooltip.select("#presupuesto").html(numberFormat(d.data.presupuesto));
             tooltip.select("#votos").html(d.data.votos);
             tooltip.select("#ano").html(d.data.ano);
@@ -846,31 +848,64 @@ function wrap(text, width) {
 }
 
 
-function creaLeaflet() {
-  var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+function creaLeaflet(filterItems) {
+  if (filterItems=="start"){
+    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
 
-      mymap = L.map('mapid').setView([-34.5300, -58.5041], 13);
-      L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr }).addTo(mymap);
+    mymap = L.map('mapid').setView([-34.5300, -58.5041], 13);
+    L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr }).addTo(mymap);
 
-      mymap.options.minZoom = 13;
-      mymap.options.maxZoom = 15;
-      mymap.setMaxBounds(mymap.getBounds().pad(0.05));
+    mymap.options.minZoom = 13;
+    mymap.options.maxZoom = 16;
+    mymap.setMaxBounds(mymap.getBounds().pad(0.1));
 
+    layerGroup = L.layerGroup().addTo(mymap);
+    
+    filterItems = "";
 
-    var myRenderer = L.canvas({ padding: 0.5 });
+  }else{
+    layerGroup.clearLayers();
+  }
+  filterItems = {};
 
-      nodes.forEach(d => {
+  if (document.getElementById("selectTemas").value) filterItems.tema = document.getElementById("selectTemas").value;
+  if (document.getElementById("selectBarrios").value) filterItems.barrio = document.getElementById("selectBarrios").value;
+
+  var myRenderer = L.canvas({ padding: 0.5 });
+  
+  nodes.filter(function (item) {
+    for (var key in filterItems) {
+      if (item[key] === undefined || item[key] != filterItems[key])
+        return false;
+    }
+    return true;
+  }).forEach(function (d,i) {
         L.circleMarker(d.geoLatLong, {
             renderer: myRenderer,
+            id: i,
           color: colorScale(d.tema)
-        }).addTo(mymap).bindPopup('marker ' + d.nombre);
+        }).addTo(layerGroup).on('click', function (e){
+
+          var d = nodes[+e.sourceTarget.options.id];
+    
+                 tooltipMap.transition()
+                    .duration(50)
+                    .style("opacity", .9);
+                  tooltipMap.select("#title").html(d.nombre);
+                  //tooltipMap.select("#prdescripcion").html(d.descripcion);
+                  tooltipMap.select("#presupuesto").html(numberFormat(d.presupuesto));
+                  tooltipMap.select("#votos").html(d.votos);
+                  tooltipMap.select("#ano").html(d.ano);
+                  tooltipMap.select("#barrio").html(d.barrio);
+        
+        });
       });
 
-
+    
 
   
 }
