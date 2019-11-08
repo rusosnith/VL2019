@@ -850,6 +850,9 @@ function wrap(text, width) {
 
 function creaLeaflet(filterItems) {
   if (filterItems=="start"){
+
+    d3.select("#mapaLeaflet").selectAll("select").on("change", creaLeaflet);
+    
     var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

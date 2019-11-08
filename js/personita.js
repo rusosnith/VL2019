@@ -29,7 +29,7 @@ var cantidades=[156,31,20,11,8,5,3,2];
 
 var grid = layout(data);
     var width = isSmallDevice ? window.innerWidth*0.95  : 600, 
-        height = isSmallDevice ? 400 : width*1.1;
+        height = isSmallDevice ? 400 : 600;
         
     var dotRadius = width / (cantidadColumnas * cantidadTipitos)*1.5;
 

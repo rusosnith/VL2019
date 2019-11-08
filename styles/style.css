@@ -330,8 +330,8 @@ div #title{
 
 .svg-container {
     position: relative;
-	max-width: 900px;
-    vertical-align: top;
+	max-width: 800px;
+	vertical-align: top;
 	overflow: hidden;
 	margin: 0 auto;
 }
@@ -347,15 +347,13 @@ div #title{
 }
 
 
-@media only screen and (min-width: 820px){
-	#mapid { 
-		height: 650px; 
-		width: 90%;
-	}	
-}
 .graph-img.controls{
 	text-align: center;
     margin-bottom: 10px;
 	margin-top: -20px;
 	width:100%;
+}
+
+#personitas{
+	height: 610px;
 }
