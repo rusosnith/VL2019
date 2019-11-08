@@ -239,8 +239,9 @@ svg g#labels {
 
 
 #tooltip,#tooltipMap {
+				z-index: 1120;
 					opacity: 0;
-					bottom: 30px;
+					bottom: 158px;
 					position: relative;
 					text-align: center;
 					width: 100%;
@@ -278,7 +279,7 @@ svg g#labels {
 
 				#tooltipMap { 
 					bottom: -8px;
-						z-index: 1120;
+			
 						right: 4%;
 					}
 
@@ -340,10 +341,18 @@ div #title{
     left: 0;
 }
 
-#mapid { height: 650px; 
+#mapid { 
+	height: 71vh;
 	width: 90%;
 }
 
+
+@media only screen and (min-width: 820px){
+	#mapid { 
+		height: 650px; 
+		width: 90%;
+	}	
+}
 .graph-img.controls{
 	text-align: center;
     margin-bottom: 10px;
