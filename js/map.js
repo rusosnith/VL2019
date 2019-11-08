@@ -187,7 +187,9 @@ if (innerHeight < height) d3.select("div#svgcontainer").style("width",(height/wi
   ]
 
   Promise.all(promises).then(function(data){
-    ready(data)});
+    ready(data)
+  
+  });
 
 
 
@@ -284,6 +286,12 @@ function ready (results){
   if (!isSmallDevice) dibujaleyendas("mapa");
 
   dibujaLabels();
+
+  // DESHABILITA EL LOADER
+  
+  d3.select("html").style("overflow", "unset");
+  d3.select("#loader").style("display", "none");
+
 
   creaLeaflet("start");
  }  
