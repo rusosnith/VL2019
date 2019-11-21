@@ -172,6 +172,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 			.card p{
 			font-weight:400;
 			margin:0;
+			line-height: 18px;
 			}
 
 			.card svg{
@@ -331,18 +332,18 @@ svg g#labels {
     margin: 5px auto;
 }
 
-.icono.lupa{
-	background-image: url(../images/Icono_lupa.svg);
+.icono.proyectos{
+	background-image: url(../images/proyectos.jpg);
     background-position: center;
 }
 
-.icono.lampara{
-	background-image: url(../images/Icono_lampara.svg);
+.icono.anios{
+	background-image: url(../images/anios.jpg);
     background-position: center;
 }
 
 .icono.participacion{
-	background-image: url(../images/Icono_participacion.svg);
+	background-image: url(../images/participacion.jpg);
     background-position: center;
 }
 
