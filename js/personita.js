@@ -13,7 +13,7 @@ var cantidad = d3.range(0, cantidadColumnas);
 
 var selectos=[1,5,8,14,20,32,43,56];
 var years = d3.range(2012,2020);
-var cantidades=[156,31,20,11,8,5,3,2];
+var cantidades=[156,31,20,11,8,5,3,2.81];
 
     // create custom locale formatter from the given locale options
     var localeFormatter = d3.formatLocale({
@@ -23,7 +23,7 @@ var cantidades=[156,31,20,11,8,5,3,2];
         "currency": ["$", ""],
     });
 
-    var numberFormat = localeFormatter.format(",.2%")
+    var numberFormat = localeFormatter.format(",.1%")
     ;
 
 
