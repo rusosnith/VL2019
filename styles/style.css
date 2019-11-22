@@ -422,12 +422,12 @@ svg g#labels {
     width: 100%;
     text-align: center;
     background: #f9f9f9;
-    padding: 15px 0;
+    padding: 6px 0;
 }
 
 
 
-.topic-year, .topic-location {
+.topic-year, .topic-location, .topic-estado {
     text-transform: uppercase;
     color: #000;
     display: inline-block;
@@ -435,6 +435,13 @@ svg g#labels {
     font-weight: 400;
     font-size: 14px;
 }
+
+.topic-estado{
+	    width: 80%;
+	    margin-top: 3px;
+}
+
+
 .topic-article-content span {
     font-weight: inherit;
 }

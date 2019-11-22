@@ -276,6 +276,7 @@ function ready (results){
             sextos: sextos[d.temaResumen],
             timeline: [xTimeline(d.temaResumen), yTimeline(+d.ano)],
             ano: +d.ano,
+            estado: d.estado,
             votos: d.votos,
             xPos: {},
             yPos: {}
@@ -351,6 +352,9 @@ function ready (results){
                 .attr('class', 'circulos')
                 .attr('id', (d) => d.id)
                 .attr('fill', (d) => colorScale(d.tema))
+                .attr('fill-opacity', function(d){
+                  return d.estado == "FINALIZADO" ? '1' : '0.7'
+                } )
                 ;
                 
               if (estado == "intro"){ 
@@ -737,6 +741,7 @@ var iteraciones = 270;
           tooltip.select("#title").html(d.data.nombre);
             tooltip.select("#presupuesto").html(numberFormat(d.data.presupuesto));
             tooltip.select("#votos").html(d.data.votos);
+            tooltip.select("#estado").html(d.data.estado);
             tooltip.select("#ano").html(d.data.ano);
             tooltip.select("#barrio").html(d.data.barrio);
           }else{
@@ -936,6 +941,7 @@ function creaLeaflet(filterItems) {
                   //tooltipMap.select("#prdescripcion").html(d.descripcion);
                   tooltipMap.select("#presupuesto").html(numberFormat(d.presupuesto));
                   tooltipMap.select("#votos").html(d.votos);
+                  tooltipMap.select("#estado").html(d.estado);
                   tooltipMap.select("#ano").html(d.ano);
                   tooltipMap.select("#barrio").html(d.barrio);
         
