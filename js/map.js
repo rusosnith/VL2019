@@ -30,6 +30,18 @@ var estadoActivo;
     "SEGURIDAD Y TRÁNSITO",
       "OTROS"];
 
+// var tipos = [
+// "AMBIENTE",
+// "CULTURA",
+// "EDUCACIÓN",
+// "INFRAESTRUCTURA EDUCATIVA",
+// "INFRAESTRUCTURA EN DEPORTES Y RECREACIÓN",
+// "INFRAESTRUCTURA PARA CULTURA",
+// "INFRAESTRUCTURA SANITARIA",
+// "INFRAESTRUCTURA URBANA",
+// "otros",
+// "SEGURIDAD Y TRÁNSITO"];
+
 // para la linea de tiempo
 
 var yTimeline = d3.scalePoint()
@@ -55,6 +67,19 @@ var  sextos = {
     "EDUCACIÓN": [insidewidth * 2 / 4, insideheight * 3 / 3],
     "OTROS": [insidewidth * 3 / 4, insideheight * 3 / 3]
   };
+
+// var sextos = [
+//   "AMBIENTE" : [insidewidth * 1 / 4, insideheight * 3 / 3],,
+//   "CULTURA",
+//   "EDUCACIÓN",
+//   "INFRAESTRUCTURA EDUCATIVA",
+//   "INFRAESTRUCTURA EN DEPORTES Y RECREACIÓN",
+//   "INFRAESTRUCTURA PARA CULTURA",
+//   "INFRAESTRUCTURA SANITARIA",
+//   "INFRAESTRUCTURA URBANA",
+//   "otros": [insidewidth * 3 / 4, insideheight * 3 / 3],
+//   "SEGURIDAD Y TRÁNSITO": [insidewidth * 1 / 3, insideheight * 2.2 / 3]];
+
 
   var centroides = {
           "VILLA ADELINA": [insidewidth * 1/5, insideheight / 3 * 1],
@@ -603,6 +628,7 @@ var iteraciones = 270;
                         root.descendants().filter((d) => d.depth == 1)
                           .forEach((d) => {
                             labelsOffset["temas"][d.data.key] = d.r;
+                            console.log(sextos[d.data.key]);
                             d.xPos = sextos[d.data.key][0];
                             d.yPos = sextos[d.data.key][1];
                           });          

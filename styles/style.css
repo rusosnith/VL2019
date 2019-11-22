@@ -332,18 +332,18 @@ svg g#labels {
     margin: 5px auto;
 }
 
+.icono.tiempo{
+	background-image: url(../images/tiempo.svg);
+    background-position: center;
+}
+
+.icono.dinero{
+	background-image: url(../images/dinero.svg);
+    background-position: center;
+}
+
 .icono.proyectos{
-	background-image: url(../images/proyectos.jpg);
-    background-position: center;
-}
-
-.icono.anios{
-	background-image: url(../images/anios.jpg);
-    background-position: center;
-}
-
-.icono.participacion{
-	background-image: url(../images/participacion.jpg);
+	background-image: url(../images/proyectos.svg);
     background-position: center;
 }
 
