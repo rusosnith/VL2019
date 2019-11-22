@@ -332,18 +332,18 @@ svg g#labels {
     margin: 5px auto;
 }
 
+.icono.tiempo{
+	background-image: url(../images/tiempo.svg);
+    background-position: center;
+}
+
+.icono.dinero{
+	background-image: url(../images/dinero.svg);
+    background-position: center;
+}
+
 .icono.proyectos{
-	background-image: url(../images/proyectos.jpg);
-    background-position: center;
-}
-
-.icono.anios{
-	background-image: url(../images/anios.jpg);
-    background-position: center;
-}
-
-.icono.participacion{
-	background-image: url(../images/participacion.jpg);
+	background-image: url(../images/proyectos.svg);
     background-position: center;
 }
 
@@ -422,12 +422,12 @@ svg g#labels {
     width: 100%;
     text-align: center;
     background: #f9f9f9;
-    padding: 15px 0;
+    padding: 6px 0;
 }
 
 
 
-.topic-year, .topic-location {
+.topic-year, .topic-location, .topic-estado {
     text-transform: uppercase;
     color: #000;
     display: inline-block;
@@ -435,6 +435,13 @@ svg g#labels {
     font-weight: 400;
     font-size: 14px;
 }
+
+.topic-estado{
+	    width: 80%;
+	    margin-top: 3px;
+}
+
+
 .topic-article-content span {
     font-weight: inherit;
 }

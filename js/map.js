@@ -30,6 +30,18 @@ var estadoActivo;
     "SEGURIDAD Y TRÁNSITO",
       "OTROS"];
 
+// var tipos = [
+// "AMBIENTE",
+// "CULTURA",
+// "EDUCACIÓN",
+// "INFRAESTRUCTURA EDUCATIVA",
+// "INFRAESTRUCTURA EN DEPORTES Y RECREACIÓN",
+// "INFRAESTRUCTURA PARA CULTURA",
+// "INFRAESTRUCTURA SANITARIA",
+// "INFRAESTRUCTURA URBANA",
+// "otros",
+// "SEGURIDAD Y TRÁNSITO"];
+
 // para la linea de tiempo
 
 var yTimeline = d3.scalePoint()
@@ -55,6 +67,19 @@ var  sextos = {
     "EDUCACIÓN": [insidewidth * 2 / 4, insideheight * 3 / 3],
     "OTROS": [insidewidth * 3 / 4, insideheight * 3 / 3]
   };
+
+// var sextos = [
+//   "AMBIENTE" : [insidewidth * 1 / 4, insideheight * 3 / 3],,
+//   "CULTURA",
+//   "EDUCACIÓN",
+//   "INFRAESTRUCTURA EDUCATIVA",
+//   "INFRAESTRUCTURA EN DEPORTES Y RECREACIÓN",
+//   "INFRAESTRUCTURA PARA CULTURA",
+//   "INFRAESTRUCTURA SANITARIA",
+//   "INFRAESTRUCTURA URBANA",
+//   "otros": [insidewidth * 3 / 4, insideheight * 3 / 3],
+//   "SEGURIDAD Y TRÁNSITO": [insidewidth * 1 / 3, insideheight * 2.2 / 3]];
+
 
   var centroides = {
           "VILLA ADELINA": [insidewidth * 1/5, insideheight / 3 * 1],
@@ -251,6 +276,7 @@ function ready (results){
             sextos: sextos[d.temaResumen],
             timeline: [xTimeline(d.temaResumen), yTimeline(+d.ano)],
             ano: +d.ano,
+            estado: d.estado,
             votos: d.votos,
             xPos: {},
             yPos: {}
@@ -326,6 +352,9 @@ function ready (results){
                 .attr('class', 'circulos')
                 .attr('id', (d) => d.id)
                 .attr('fill', (d) => colorScale(d.tema))
+                .attr('fill-opacity', function(d){
+                  return d.estado == "FINALIZADO" ? '1' : '0.7'
+                } )
                 ;
                 
               if (estado == "intro"){ 
@@ -603,6 +632,7 @@ var iteraciones = 270;
                         root.descendants().filter((d) => d.depth == 1)
                           .forEach((d) => {
                             labelsOffset["temas"][d.data.key] = d.r;
+                            console.log(sextos[d.data.key]);
                             d.xPos = sextos[d.data.key][0];
                             d.yPos = sextos[d.data.key][1];
                           });          
@@ -711,6 +741,7 @@ var iteraciones = 270;
           tooltip.select("#title").html(d.data.nombre);
             tooltip.select("#presupuesto").html(numberFormat(d.data.presupuesto));
             tooltip.select("#votos").html(d.data.votos);
+            tooltip.select("#estado").html(d.data.estado);
             tooltip.select("#ano").html(d.data.ano);
             tooltip.select("#barrio").html(d.data.barrio);
           }else{
@@ -910,6 +941,7 @@ function creaLeaflet(filterItems) {
                   //tooltipMap.select("#prdescripcion").html(d.descripcion);
                   tooltipMap.select("#presupuesto").html(numberFormat(d.presupuesto));
                   tooltipMap.select("#votos").html(d.votos);
+                  tooltipMap.select("#estado").html(d.estado);
                   tooltipMap.select("#ano").html(d.ano);
                   tooltipMap.select("#barrio").html(d.barrio);
         
