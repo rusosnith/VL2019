@@ -632,7 +632,6 @@ var iteraciones = 270;
                         root.descendants().filter((d) => d.depth == 1)
                           .forEach((d) => {
                             labelsOffset["temas"][d.data.key] = d.r;
-                            console.log(sextos[d.data.key]);
                             d.xPos = sextos[d.data.key][0];
                             d.yPos = sextos[d.data.key][1];
                           });          
@@ -925,25 +924,26 @@ function creaLeaflet(filterItems) {
         return false;
     }
     return true;
-  }).forEach(function (d,i) {
-        L.circleMarker(d.geoLatLong, {
-            renderer: myRenderer,
-            id: i,
-          color: colorScale(d.tema)
-        }).addTo(layerGroup).on('click', function (e){
+  }).forEach(function (dd) {
 
-          var d = nodes[+e.sourceTarget.options.id];
-    
+    L.circleMarker(dd.geoLatLong, {
+                            renderer: myRenderer,
+                            id: dd.id,
+                            color: colorScale(dd.tema)})
+      .addTo(layerGroup)
+      .on('click', function (){
+          var ee = nodes.filter(function (item) {
+            return +item.id == +dd.id ? 1 : 0 ;
+            })[0];
                  tooltipMap.transition()
                     .duration(50)
                     .style("opacity", .9);
-                  tooltipMap.select("#title").html(d.nombre);
-                  //tooltipMap.select("#prdescripcion").html(d.descripcion);
-                  tooltipMap.select("#presupuesto").html(numberFormat(d.presupuesto));
-                  tooltipMap.select("#votos").html(d.votos);
-                  tooltipMap.select("#estado").html(d.estado);
-                  tooltipMap.select("#ano").html(d.ano);
-                  tooltipMap.select("#barrio").html(d.barrio);
+                  tooltipMap.select("#title").html(ee.nombre);
+                  tooltipMap.select("#presupuesto").html(numberFormat(ee.presupuesto));
+                  tooltipMap.select("#votos").html(ee.votos);
+                  tooltipMap.select("#estado").html(ee.estado);
+                  tooltipMap.select("#ano").html(ee.ano);
+                  tooltipMap.select("#barrio").html(ee.barrio);
         
         });
       });
